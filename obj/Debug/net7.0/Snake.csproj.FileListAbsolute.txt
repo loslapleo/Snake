@@ -1,0 +1,15 @@
+/home/leoh/Code/Snake/bin/Debug/net7.0/Snake
+/home/leoh/Code/Snake/bin/Debug/net7.0/Snake.deps.json
+/home/leoh/Code/Snake/bin/Debug/net7.0/Snake.runtimeconfig.json
+/home/leoh/Code/Snake/bin/Debug/net7.0/Snake.dll
+/home/leoh/Code/Snake/bin/Debug/net7.0/Snake.pdb
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.csproj.AssemblyReference.cache
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.GeneratedMSBuildEditorConfig.editorconfig
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.AssemblyInfoInputs.cache
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.AssemblyInfo.cs
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.csproj.CoreCompileInputs.cache
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.dll
+/home/leoh/Code/Snake/obj/Debug/net7.0/refint/Snake.dll
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.pdb
+/home/leoh/Code/Snake/obj/Debug/net7.0/Snake.genruntimeconfig.cache
+/home/leoh/Code/Snake/obj/Debug/net7.0/ref/Snake.dll
