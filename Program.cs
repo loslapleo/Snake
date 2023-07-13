@@ -8,6 +8,7 @@
 		const int X_SIZE = 80;
 		const int Y_SIZE = 20;
 		const int SIZE = X_SIZE * Y_SIZE;
+		static bool quit = false;
 		static Timer timer = new Timer();
 		enum Direction {
 			Up,
@@ -24,7 +25,6 @@
 
 		public static void Main(string[] args)
 		{
-			bool quit = false;
 			Console.Title = "Game";
 			Console.CursorVisible = false;
 
@@ -67,39 +67,53 @@
 		private static void Tick(Object source, ElapsedEventArgs e)
 		{
 			Console.Clear();
+			// Draw barrier.
+			for (int i = 0; i <= X_SIZE + 1; i++) {
+				Console.SetCursorPosition(i, 0);
+				Console.Write("+");
+				Console.SetCursorPosition(i, Y_SIZE + 1);
+				Console.Write("+");
+			}
+			for (int i = 1; i < Y_SIZE + 1; i++) {
+				Console.SetCursorPosition(0, i);
+				Console.Write("+");
+				Console.SetCursorPosition(X_SIZE + 1, i);
+				Console.Write("+");
+			}
+			// Draw snake;
 			for (int i = 0; i < score + 1; i++) {
 				Console.SetCursorPosition(snake[i, 0], snake[i, 1]);
 				Console.Write("o");
 			}
 			Console.SetCursorPosition(appleX, appleY);
 			Console.Write("@");
-			Console.SetCursorPosition(0, Y_SIZE);
-			Console.Write("Score: " + score);
+			Console.SetCursorPosition(X_SIZE / 2 - 7, Y_SIZE + 1);
+			Console.Write("| Score: " + score + " |");
 
 			switch (direction) {
 				case Direction.Up:
-					if (snake[0, 1] > 0) {
+					if (snake[0, 1] > 1) {
 						snake = Slither(snake);
 						snake[0, 1]--;
-					}
+					} else Quit();
 					break;
 				case Direction.Down:
-					if (snake[0, 1] < Y_SIZE - 1) {
+					if (snake[0, 1] < Y_SIZE) {
 						snake = Slither(snake);
 						snake[0, 1]++;
-					}
+					} else Quit();
 					break;
 				case Direction.Left:
-					if (snake[0, 0] > 0) {
+					if (snake[0, 0] > 1) {
 						snake = Slither(snake);
 						snake[0, 0]--;
-					}
+					} else Quit();
 					break;
 				case Direction.Right:
-					if (snake[0, 0] < X_SIZE - 1) {
+					if (snake[0, 0] < X_SIZE) {
 						snake = Slither(snake);
 						snake[0, 0]++;
-					}
+					} else Quit();
 					break;
 			}
 
@@ -109,9 +123,6 @@
 				appleY = random.Next(0, Y_SIZE);
 				score++;
 			}
-
-			Console.SetCursorPosition(0, Y_SIZE + 1);
-			Console.Write(e.SignalTime);
 		}
 
 		private static int[,] Slither(int[,] snake)
@@ -122,6 +133,17 @@
 			}
 
 			return snake;
+		}
+
+		private static void Quit()
+		{
+			quit = true;
+			Console.SetCursorPosition(X_SIZE / 2 - 7, Y_SIZE / 2 - 1);
+			Console.Write("H===========H");
+			Console.SetCursorPosition(X_SIZE / 2 - 7, Y_SIZE / 2);
+			Console.Write("H Game Over H");
+			Console.SetCursorPosition(X_SIZE / 2 - 7, Y_SIZE / 2 + 1);
+			Console.Write("H===========H");
 		}
 	}
 }
