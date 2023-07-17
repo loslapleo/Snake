@@ -80,7 +80,7 @@
 				Console.SetCursorPosition(X_SIZE + 1, i);
 				Console.Write("+");
 			}
-			// Draw snake;
+			// Draw snake and log its position in grid.
 			for (int i = 0; i < score + 1; i++) {
 				Console.SetCursorPosition(snake[i, 0], snake[i, 1]);
 				Console.Write("o");
@@ -117,20 +117,44 @@
 					break;
 			}
 
+			// Snake ate itself.
+			for (int i = 1; i < score + 1; i++) {
+				if (snake[0, 0] == snake[i, 0] && snake[0, 1] == snake[i, 1]) Quit();
+			}
+
+			// Apple was eaten.
 			if (snake[0, 0] == appleX && snake[0, 1] == appleY) {
+				/*
 				Random random = new Random();
-				appleX = random.Next(0, X_SIZE);
-				appleY = random.Next(0, Y_SIZE);
+				appleX = random.Next(1, X_SIZE);
+				appleY = random.Next(1, Y_SIZE);
+				score++;
+				*/
+
+				Random random = new Random();
+				int t = random.Next(0, SIZE - score - 1);
+				appleX = 1;
+				appleY = 1;
+				while(t > 0) {
+					appleX++;
+					if (appleX == X_SIZE) {
+						appleX = 1;
+						appleY++;
+					}
+					if (grid[appleX - 1, appleY - 1] == 0) t--;
+				}
 				score++;
 			}
 		}
 
 		private static int[,] Slither(int[,] snake)
 		{
-			for (int i = SIZE - 1; i > 0; i--) {
+			grid[snake[0, 0] - 1, snake[0, 1] - 1] = 1;
+			for (int i = score + 1; i > 0; i--) {
 				snake[i, 0] = snake[i - 1, 0];
 				snake[i, 1] = snake[i - 1, 1];
 			}
+			grid[snake[score, 0] - 1, snake[score, 1] - 1] = 0;
 
 			return snake;
 		}
@@ -138,12 +162,13 @@
 		private static void Quit()
 		{
 			quit = true;
+			timer.Enabled = false;
 			Console.SetCursorPosition(X_SIZE / 2 - 7, Y_SIZE / 2 - 1);
-			Console.Write("H===========H");
+			Console.Write("=============");
 			Console.SetCursorPosition(X_SIZE / 2 - 7, Y_SIZE / 2);
-			Console.Write("H Game Over H");
+			Console.Write("= Game Over =");
 			Console.SetCursorPosition(X_SIZE / 2 - 7, Y_SIZE / 2 + 1);
-			Console.Write("H===========H");
+			Console.Write("=============");
 		}
 	}
 }
